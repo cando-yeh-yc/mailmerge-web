@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>客製郵件群發</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">✉</span>
+    <span>客製郵件群發</span>
+    <span class="brand-sub">名單、模板、附件都只留在你的瀏覽器</span>
+  </div>
+  <div id="authArea">
+    <button id="btnGoogle" class="btn">使用 Google 登入</button>
+    <button id="btnMS" class="btn">使用 Microsoft 登入</button>
+  </div>
+</header>
+
+<main>
+
+<!-- 步驟 1：名單 -->
+<section class="step" id="step1">
+  <h2><span class="step-no">1</span>匯入名單</h2>
+  <div id="pasteZone" class="paste-zone" tabindex="0">
+    <div class="pz-title">從 Excel／Google Sheets 複製名單後，點這裡按 Cmd+V 貼上</div>
+    <div class="pz-sub">或拖放／選擇 .csv、.xlsx 檔案（第一列當欄位名；資料不會離開你的瀏覽器）</div>
+    <button id="btnPickFile" class="btn btn-sm">選擇檔案</button>
+    <input type="file" id="fileInput" accept=".csv,.tsv,.xlsx" hidden>
+  </div>
+
+  <div id="dataArea" hidden>
+    <div class="row-bar">
+      <span id="statOk" class="tag tag-ok"></span>
+      <span id="statBad" class="tag tag-bad" hidden></span>
+      <span id="statCols" class="muted"></span>
+      <button id="btnClearData" class="btn btn-sm">清除重貼</button>
+    </div>
+
+    <div class="map-grid">
+      <label class="map-item">
+        <span class="map-label">收件人欄位（email）</span>
+        <select id="selEmailCol"></select>
+      </label>
+      <label class="map-item">
+        <span class="map-label">附件欄位（填檔名，多檔用「;」分隔，留空＝不指定）</span>
+        <select id="selAttachCol"></select>
+      </label>
+    </div>
+
+    <div class="attach-pools">
+      <div class="pool">
+        <div class="pool-title">逐筆附件檔案池（拖放多個檔案，依「附件欄」檔名對應）</div>
+        <div id="poolZone" class="drop-zone">拖放檔案到這裡，或 <button id="btnPoolPick" class="btn btn-sm">選擇檔案</button>
+          <input type="file" id="poolInput" multiple hidden>
+        </div>
+        <div id="poolList" class="file-list"></div>
+      </div>
+      <div class="pool">
+        <div class="pool-title">共同附件（每一封都會夾帶）</div>
+        <div id="globalZone" class="drop-zone">拖放檔案到這裡，或 <button id="btnGlobalPick" class="btn btn-sm">選擇檔案</button>
+          <input type="file" id="globalInput" multiple hidden>
+        </div>
+        <div id="globalList" class="file-list"></div>
+      </div>
+    </div>
+
+    <div id="tableWrap" class="table-wrap"></div>
+  </div>
+</section>
+
+<!-- 步驟 2：模板 -->
+<section class="step" id="step2" hidden>
+  <h2><span class="step-no">2</span>撰寫模板</h2>
+  <div class="compose-grid">
+    <div class="editor-pane">
+      <div class="muted" style="margin-bottom:6px">插入變數（點一下插入游標處，或在編輯器輸入 <code>{{</code>）</div>
+      <div id="chipBar" class="chip-bar"></div>
+      <div class="field-label">主旨</div>
+      <div id="subjectEditor" class="editor subject-editor" contenteditable="true"></div>
+      <div class="field-label">內文</div>
+      <div id="bodyEditor" class="editor body-editor" contenteditable="true"></div>
+      <div id="acMenu" class="ac-menu" hidden></div>
+    </div>
+    <div class="preview-pane">
+      <div class="preview-head">
+        <span id="pvCounter" class="muted"></span>
+        <span class="pv-nav">
+          <button id="pvPrev" class="btn btn-sm">‹ 上一筆</button>
+          <button id="pvNext" class="btn btn-sm">下一筆 ›</button>
+        </span>
+      </div>
+      <div class="pv-field"><span class="muted">收件人</span><div id="pvTo"></div></div>
+      <div class="pv-field"><span class="muted">主旨</span><div id="pvSubject" class="pv-subject"></div></div>
+      <div class="pv-body" id="pvBody"></div>
+      <div id="pvAtts" class="pv-atts"></div>
+      <div id="pvWarn" class="pv-warn" hidden></div>
+    </div>
+  </div>
+</section>
+
+<!-- 步驟 3：寄送 -->
+<section class="step" id="step3" hidden>
+  <h2><span class="step-no">3</span>寄送</h2>
+  <div class="send-bar">
+    <div id="sendSummary" class="send-summary"></div>
+    <div class="send-actions">
+      <button id="btnTest" class="btn">寄測試信給自己</button>
+      <button id="btnSend" class="btn btn-primary">開始寄送</button>
+      <button id="btnStop" class="btn btn-danger" hidden>停止</button>
+      <button id="btnRetry" class="btn" hidden>重寄失敗的</button>
+    </div>
+  </div>
+  <div id="progressBar" class="progress" hidden><div id="progressFill" class="progress-fill"></div></div>
+  <div id="sendLog" class="send-log"></div>
+</section>
+
+<div id="setupHint" class="setup-hint" hidden></div>
+
+</main>
+
+<footer class="foot">
+  信件由你自己的帳號直接寄出（Gmail API／Microsoft Graph），會出現在你的寄件備份。本工具無伺服器、不儲存任何資料。
+</footer>
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@azure/msal-browser@3/lib/msal-browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="config.js"></script>
+<script src="js/mail.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
