@@ -10,5 +10,13 @@
   },
   "compatibility_flags": [
     "nodejs_compat"
+  ],
+  // 正式網域。這個 hostname 原本綁在舊的 Pages 專案上，
+  // 要先讓舊專案放手（移除自訂網域或刪除專案）這裡才掛得上去。
+  "routes": [
+    {
+      "pattern": "mailmerge-web.ycfinance.tw",
+      "custom_domain": true
+    }
   ]
 }
