@@ -1,0 +1,17 @@
+# 不要當成靜態資源上傳的檔案（語法同 .gitignore）
+# wrangler.jsonc 的 assets.directory 是 "."，整個 repo 根目錄都會被上傳，
+# 包含 .git —— 不排除的話等於把完整版本歷史公開在網站上。
+
+# 版控與工具產物
+.git
+.github
+.wrangler
+.gitignore
+.assetsignore
+
+# 系統垃圾
+.DS_Store
+
+# 專案設定與文件，不需要對外提供
+wrangler.jsonc
+README.md
