@@ -22,7 +22,7 @@ cd ~/Downloads/mailmerge-web && python3 -m http.server 8000
 4. 「憑證」→ 建立憑證 → **OAuth 用戶端 ID** → 類型選「網頁應用程式」→ 「已授權的 JavaScript 來源」加 `http://localhost:8000` 與正式網域
 5. 把 Client ID 填進 `config.js` 的 `GOOGLE_CLIENT_ID`
 
-> 公開上線：`gmail.send` 是受限 scope，需要通過 Google 的 app 驗證＋ CASA 資安評估（第三方認證機構，需數週與年度費用）。開發與測試模式不受影響。
+> 公開上線：`gmail.send` 是**敏感（sensitive）scope**，需要通過 Google OAuth app 驗證——網域所有權驗證＋首頁＋隱私政策＋英文示範影片，**免費**，不需 CASA 資安評估（CASA 只有 restricted scope，如 `gmail.readonly`、`mail.google.com` 才要）。開發與測試模式不受影響。送審步驟與可複製文案見 [`docs/google-verification.md`](docs/google-verification.md)。
 
 ### Microsoft（Outlook / M365 寄信）
 

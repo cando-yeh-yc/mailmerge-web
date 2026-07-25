@@ -40,6 +40,24 @@ main { max-width: 1080px; margin: 0 auto; padding: 16px 20px 60px; }
 .btn-primary:hover { background: var(--blue-dark); }
 .btn-primary:disabled { background: #a8c7ee; border-color: #a8c7ee; cursor: not-allowed; }
 .btn-danger { background: #d93025; border-color: #d93025; color: #fff; }
+/* 圖示＋文字的登入按鈕 */
+.btn-oauth { display: inline-flex; align-items: center; gap: 8px; }
+.oauth-icon { display: block; width: 18px; height: 18px; flex: none; }
+
+/* 首頁說明區（同時是 Google OAuth 審查看的 homepage 說明與 in-product 資料揭露） */
+.hero { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px; margin-top: 16px; }
+.hero h1 { font-size: 20px; margin: 0 0 10px; }
+.hero-lead { margin: 0 0 10px; max-width: 74ch; }
+.hero-en { color: var(--muted); font-size: 13px; line-height: 1.55; }
+.hero-points { margin: 14px 0; padding-left: 20px; max-width: 78ch; }
+.hero-points li { margin: 0 0 8px; }
+.hero-points .hero-en { display: block; margin-top: 2px; }
+.hero-pub { font-size: 13px; color: var(--muted); margin: 10px 0 0; }
+.hero-pub a { color: var(--blue); }
+.hero-start {
+  margin: 16px 0 0; padding-top: 12px; border-top: 1px solid var(--line); font-size: 14px;
+}
+.hero code { background: #f1f3f4; padding: 1px 5px; border-radius: 4px; font-size: 12.5px; }
 
 .step { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; margin-top: 16px; }
 .step h2 { font-size: 17px; margin: 0 0 14px; display: flex; align-items: center; gap: 8px; }

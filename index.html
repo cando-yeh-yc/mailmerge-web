@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>客製郵件群發</title>
+<title>客製郵件群發 Mail Merge</title>
+<meta name="description" content="客製郵件群發 Mail Merge — 用你自己的 Gmail 或 Outlook 帳號寄送客製化郵件。純瀏覽器執行，無伺服器、不儲存任何資料。A mail merge tool that sends personalized bulk email from your own Gmail or Outlook account, entirely in your browser.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,16 +12,51 @@
 <header class="topbar">
   <div class="brand">
     <span class="brand-mark">✉</span>
-    <span>客製郵件群發</span>
+    <span>客製郵件群發 Mail Merge</span>
     <span class="brand-sub">名單、模板、附件都只留在你的瀏覽器</span>
   </div>
-  <div id="authArea">
-    <button id="btnGoogle" class="btn">使用 Google 登入</button>
-    <button id="btnMS" class="btn">使用 Microsoft 登入</button>
-  </div>
+  <!-- 登入按鈕由 js/app.js 的 updateAuthUI() 產生（含供應商圖示），此處留空避免同一份標記寫兩次 -->
+  <div id="authArea"></div>
 </header>
 
 <main>
+
+<!-- 首頁說明：對使用者說明用途，同時滿足 Google OAuth 審查對首頁與 in-product 揭露的要求 -->
+<section class="hero">
+  <h1>客製郵件群發 Mail Merge</h1>
+  <p class="hero-lead">
+    貼上一份名單、寫一次模板，用 <strong>你自己的 Gmail 或 Outlook 帳號</strong> 寄出一封封填好姓名、金額、附件的客製化郵件。
+    每封信都從你的帳號寄出，會留在你自己的寄件備份裡。
+  </p>
+  <p class="hero-lead hero-en">
+    <strong>Mail Merge</strong> lets you send personalized bulk email from your own Gmail or Microsoft account.
+    Paste a recipient list, write one template with <code>{{placeholders}}</code>, attach per-recipient files, and send —
+    each message goes out from your own mailbox and lands in your own Sent folder.
+  </p>
+
+  <ul class="hero-points">
+    <li><strong>不經過任何伺服器</strong>——名單、模板、附件、登入憑證只存在你瀏覽器的記憶體，關掉分頁就消失。本工具沒有後端、沒有資料庫、不做分析追蹤。<br>
+      <span class="hero-en">No server, no database, no analytics. Your list, template, attachments, and OAuth token live only in your browser's memory and are discarded when you close the tab.</span></li>
+    <li><strong>只要最小權限</strong>——Google 只要求 <code>gmail.send</code>（僅代為寄信）與 <code>email</code>（顯示登入帳號）；Microsoft 只要求 <code>Mail.Send</code>。<strong>不要求</strong>讀取你的信件、通訊錄或雲端硬碟。<br>
+      <span class="hero-en">We request only <code>gmail.send</code> (send-only) and <code>email</code> from Google, and <code>Mail.Send</code> from Microsoft. We never request read access to your mailbox, contacts, or files.</span></li>
+    <li><strong>你隨時可以收回授權</strong>——到 Google 或 Microsoft 帳號設定移除本應用程式即可。<br>
+      <span class="hero-en">You can revoke access at any time from your Google or Microsoft account settings.</span></li>
+  </ul>
+
+  <p class="hero-pub">
+    由 <strong>Cando Yeh</strong> 開發並維運 · Built and operated by <strong>Cando Yeh</strong> ·
+    <a href="privacy.html">隱私政策 Privacy Policy</a> ·
+    <a href="terms.html">使用條款 Terms of Service</a> ·
+    <a href="mailto:cando.yeh@ycfinance.tw">cando.yeh@ycfinance.tw</a>
+  </p>
+  <p class="hero-pub">
+    本應用程式對 Google API 取得之資訊的使用與轉移，遵守
+    <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener">Google API Services User Data Policy</a>，含 Limited Use 要求。<br>
+    <span class="hero-en">This app's use and transfer of information received from Google APIs adheres to the Google API Services User Data Policy, including the Limited Use requirements.</span>
+  </p>
+
+  <p class="hero-start">往下開始：<strong>① 匯入名單 → ② 撰寫模板 → ③ 寄送</strong>。右上角登入後才會啟用寄送。</p>
+</section>
 
 <!-- 步驟 1：名單 -->
 <section class="step" id="step1">
