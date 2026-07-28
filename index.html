@@ -7,6 +7,14 @@
 <meta name="description" content="客製郵件群發 Mail Merge — 用你自己的 Gmail 或 Outlook 帳號寄送客製化郵件。純瀏覽器執行，無伺服器、不儲存任何資料。A mail merge tool that sends personalized bulk email from your own Gmail or Outlook account, entirely in your browser.">
 <link rel="icon" type="image/png" sizes="128x128" href="/app-icon-128.png">
 <link rel="apple-touch-icon" href="/app-icon-512.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mailmerge-web.ycfinance.tw/">
+<meta property="og:title" content="客製郵件群發 Mail Merge">
+<meta property="og:description" content="用你自己的 Gmail / Outlook 帳號寄送客製化郵件。純瀏覽器執行，無伺服器、不儲存任何資料。">
+<meta property="og:image" content="https://mailmerge-web.ycfinance.tw/og-banner.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -37,8 +45,8 @@
   </p>
 
   <ul class="hero-points">
-    <li><strong>不經過任何伺服器</strong>——名單、模板、附件、登入憑證只存在你瀏覽器的記憶體，關掉分頁就消失。本工具沒有後端、沒有資料庫、不做分析追蹤。<br>
-      <span class="hero-en">No server, no database, no analytics. Your list, template, attachments, and OAuth token live only in your browser's memory and are discarded when you close the tab.</span></li>
+    <li><strong>不經過任何伺服器</strong>——名單、模板、附件、登入憑證只存在你瀏覽器的記憶體，關掉分頁就消失。本工具沒有後端、沒有資料庫；流量統計採用無 Cookie 的匿名計數（Cloudflare Web Analytics），不追蹤個人身分。<br>
+      <span class="hero-en">No server, no database, no cookies. Your list, template, attachments, and OAuth token live only in your browser's memory and are discarded when you close the tab. Traffic is measured with cookieless, anonymous Cloudflare Web Analytics.</span></li>
     <li><strong>只要最小權限</strong>——Google 只要求 <code>gmail.send</code>（僅代為寄信）與 <code>email</code>（顯示登入帳號）；Microsoft 只要求 <code>Mail.Send</code>。<strong>不要求</strong>讀取你的信件、通訊錄或雲端硬碟。<br>
       <span class="hero-en">We request only <code>gmail.send</code> (send-only) and <code>email</code> from Google, and <code>Mail.Send</code> from Microsoft. We never request read access to your mailbox, contacts, or files.</span></li>
     <li><strong>你隨時可以收回授權</strong>——到 Google 或 Microsoft 帳號設定移除本應用程式即可。<br>
@@ -172,6 +180,9 @@
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="https://cdn.jsdelivr.net/npm/@azure/msal-browser@3/lib/msal-browser.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<!-- Cloudflare Web Analytics（無 Cookie 匿名統計）；token 填入後移除註解即生效
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "REPLACE_WITH_CF_TOKEN"}'></script>
+-->
 <script src="config.js"></script>
 <script src="js/mail.js"></script>
 <script src="js/auth.js"></script>
